@@ -674,7 +674,7 @@
     },
     "Name": {
       "name": "Campaign.Name.name",
-      "help": "Campaign.Name.help"
+      "help": ""
     },
     "Event": {
       "name": "Campaign.Event.name",
@@ -759,6 +759,7 @@
       "event_20250424_cn": "チュリッパの海へ",
       "event_20250520_cn": "高い塔の薔薇",
       "event_20250724_cn": "錬金術士と天空邂逅の塔",
+      "event_20250814_cn": "淵層界の秘密",
       "raid_20200624": "特別演習超空強襲波（復刻）",
       "raid_20210708": "交錯する新たな波 (復刻)",
       "raid_20220127": "秘密事件調査",
@@ -2661,6 +2662,8 @@
       "Stop": "中止",
       "ScrollON": "自動スクロール ON",
       "ScrollOFF": "自動スクロール OFF",
+      "DashboardON": "ダッシュボード ON",
+      "DashboardOFF": "ダッシュボード OFF",
       "ClearLog": "ログクリーニング",
       "Setting": "設定",
       "CheckUpdate": "アップデータチェック",
@@ -2693,11 +2696,34 @@
     },
     "Overview": {
       "Scheduler": "スケジューラー",
+      "Dashboard": "ダッシュボード",
       "Log": "ログ",
       "Running": "実行中",
       "Pending": "隊列中",
       "Waiting": "Waiting",
       "NoTask": "No Task"
+    },
+    "Dashboard": {
+      "TimeError": "Time error",
+      "JustNow": "Just now",
+      "MinutesAgo": "Minutes ago",
+      "HoursAgo": "Hours ago",
+      "DaysAgo": "Days ago",
+      "MonthsAgo": "Months ago",
+      "LongTimeAgo": "Long time ago",
+      "NoData": "No data",
+      "Oil": "Oil",
+      "Coin": "Coin",
+      "Gem": "Gem",
+      "Cube": "Cube",
+      "Pt": "Event Pt",
+      "YellowCoin": "Operation Supply Coin",
+      "PurpleCoin": "Special Item Token",
+      "ActionPoint": "Action Point",
+      "Merit": "Merit",
+      "Medal": "Medal",
+      "Core": "Core Data",
+      "GuildCoin": "Guild Coin"
     },
     "AddAlas": {
       "PopupTitle": "新しいコンフィグを追加",
