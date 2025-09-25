@@ -8,7 +8,7 @@ from module.handler.auto_search import AutoSearchHandler
 from module.logger import logger
 from module.ui.switch import Switch
 
-FAST_FORWARD = Switch('Fast_Forward')
+FAST_FORWARD = Switch('Fast_Forward', offset=(5, 5))
 FAST_FORWARD.add_state('on', check_button=FAST_FORWARD_ON)
 FAST_FORWARD.add_state('off', check_button=FAST_FORWARD_OFF)
 FLEET_LOCK = Switch('Fleet_Lock', offset=(5, 20))
@@ -313,7 +313,8 @@ class FastForwardHandler(AutoSearchHandler):
             return False
         if not self.is_call_submarine_at_boss:
             return False
-        if not self.map_is_auto_search:
+        # 2025.09.22, correct that fleet role settings is unlocked after clear mode
+        if not self.map_is_clear_mode:
             logger.warning('Can not set submarine call because auto search not available, assuming disabled')
             logger.warning('Please do the followings: '
                            'goto any stage -> auto search role -> set submarine role to standby')
