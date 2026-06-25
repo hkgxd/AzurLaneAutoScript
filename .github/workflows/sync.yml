@@ -28,7 +28,7 @@ jobs:
         with:
           target_repo_token: ${{ secrets.GITHUB_TOKEN }}
           # ⚠️ 关键：将下面两行替换为你的上游仓库信息[reference:9]
-          upstream_sync_repo: https://github.com/guoh064/AzurLaneAutoScript
+          upstream_sync_repo: guoh064/AzurLaneAutoScript
           upstream_sync_branch: main
           target_sync_branch: master
           test_mode: false
