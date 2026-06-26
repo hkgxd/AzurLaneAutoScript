@@ -327,9 +327,12 @@ class GemsFarming(CampaignRun, Dock):
         unmount_button = globals()[f'FLEET_{self.fleet_to_attack}_BACKLINE_1']
         mount_button = globals()[f'FLEET_{self.fleet_to_attack}_BACKLINE_3']
 
-        self.ui_enter_ship(unmount_button, long_click=False)
-        self.ui_click(DOCK_UNMOUNT, check_button=FLEET_PREPARATION, appear_button=DOCK_CHECK, 
-                      additional=self.ensure_no_info_bar, confirm_wait=1, retry_wait=5)
+        if self.appear(unmount_button, offset=(20, 20)):
+            logger.info('No flagship to unmount, skip unmounting.')
+        else:
+            self.ui_enter_ship(unmount_button, long_click=False)
+            self.ui_click(DOCK_UNMOUNT, check_button=FLEET_PREPARATION, appear_button=DOCK_CHECK, 
+                          additional=self.ensure_no_info_bar, confirm_wait=1, retry_wait=5)
 
         self.ui_enter_ship(mount_button, long_click=False)
         candidate = self.get_common_rarity_cv(max_level=31, min_emotion=self.min_emotion)
@@ -368,7 +371,7 @@ class GemsFarming(CampaignRun, Dock):
         self.ui_goto_fleet()
         button = self.fleet_backline_1_button
 
-        if self.change_flagship_equip:
+        if self.change_flagship_equip and not self.appear(button, offset=(20, 20)):
             logger.hr('Unmount flagship equipments', level=2)
             self.ui_enter_ship(button, long_click=True)
             self.ship_equipment_take_off()
@@ -377,7 +380,7 @@ class GemsFarming(CampaignRun, Dock):
         logger.hr('Change flagship', level=2)
         success = self.flagship_change_execute()
 
-        if self.change_flagship_equip:
+        if self.change_flagship_equip and not self.appear(button, offset=(20, 20)):
             logger.hr('Mount flagship equipments', level=2)
             self.ui_enter_ship(button, long_click=True)
             self.ship_equipment_take_on()
@@ -471,9 +474,12 @@ class GemsFarming(CampaignRun, Dock):
         unmount_button = globals()[f'FLEET_{self.fleet_to_attack}_VANGUARD_1']
         mount_button = globals()[f'FLEET_{self.fleet_to_attack}_VANGUARD_3']
 
-        self.ui_enter_ship(unmount_button, long_click=False)
-        self.ui_click(DOCK_UNMOUNT, check_button=FLEET_PREPARATION, appear_button=DOCK_CHECK, 
-                      additional=self.ensure_no_info_bar, confirm_wait=1, retry_wait=5)
+        if self.appear(unmount_button, offset=(20, 20)):
+            logger.info('No flagship to unmount, skip unmounting.')
+        else:
+            self.ui_enter_ship(unmount_button, long_click=False)
+            self.ui_click(DOCK_UNMOUNT, check_button=FLEET_PREPARATION, appear_button=DOCK_CHECK, 
+                          additional=self.ensure_no_info_bar, confirm_wait=1, retry_wait=5)
 
         self.ui_enter_ship(mount_button, long_click=False)
         candidate = self.get_common_rarity_dd(min_emotion=self.min_emotion)
@@ -512,7 +518,7 @@ class GemsFarming(CampaignRun, Dock):
         self.ui_goto_fleet()
         button = self.fleet_vanguard_1_button
 
-        if self.change_vanguard_equip:
+        if self.change_vanguard_equip and not self.appear(button, offset=(20, 20)):
             logger.hr('Unmount vanguard equipments', level=2)
             self.ui_enter_ship(button, long_click=True)
             self.ship_equipment_take_off()
@@ -521,7 +527,7 @@ class GemsFarming(CampaignRun, Dock):
         logger.hr('Change vanguard', level=2)
         success = self.vanguard_change_execute()
 
-        if self.change_vanguard_equip:
+        if self.change_vanguard_equip and not self.appear(button, offset=(20, 20)):
             logger.hr('Mount vanguard equipments', level=2)
             self.ui_enter_ship(button, long_click=True)
             self.ship_equipment_take_on()
@@ -565,6 +571,23 @@ class GemsFarming(CampaignRun, Dock):
             except CampaignEnd as e:
                 if "Emotion" in e.args[0]:
                     self._trigger_emotion = True
+                else:
+                    raise e
+            except RequestHumanTakeover as e:
+                if 'Hard not satisfied' in e.args[0]:
+                    prepared = False
+                    if self.appear(self.fleet_backline_1_button, offset=(20, 20)):
+                        logger.info('Backline is empty, change flagship')
+                        self.flagship_change()
+                        prepared = True
+                    if self.appear(self.fleet_vanguard_1_button, offset=(20, 20)):
+                        logger.info('Vanguard is empty, change vanguard')
+                        self.vanguard_change()
+                        prepared = True
+                    if prepared:
+                        continue
+                    else:
+                        raise e
                 else:
                     raise e
 
