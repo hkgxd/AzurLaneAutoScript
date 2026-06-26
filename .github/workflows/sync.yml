@@ -3,32 +3,25 @@ permissions:
   contents: write
 
 on:
-  # 定时触发：每天 UTC 时间 0 点执行一次[reference:4]
   schedule:
     - cron: '0 0 */2 * *'
-  # 允许你手动在 Actions 页面触发工作流[reference:5]
   workflow_dispatch:
 
 jobs:
-  sync_with_upstream:
-    name: Sync with Upstream
+  sync:
     runs-on: ubuntu-latest
-    
-    # 仅在 Fork 仓库中运行，防止在原始仓库误触[reference:6]
     if: ${{ github.event.repository.fork }}
-    
     steps:
-      # 1. 检出你的 Fork 仓库代码[reference:7]
-      - name: Checkout target repo
-        uses: actions/checkout@v3
-
-      # 2. 执行同步操作[reference:8]
-      - name: Sync Upstream
-        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
-          # ⚠️ 关键：将下面两行替换为你的上游仓库信息[reference:9]
-          upstream_sync_repo: guoh064/AzurLaneAutoScript
-          upstream_sync_branch: main
-          target_sync_branch: master
-          test_mode: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Sync upstream (force theirs)
+        run: |
+          git remote add upstream https://github.com/guoh064/AzurLaneAutoScript.git
+          git fetch upstream
+          git checkout master
+          git merge upstream/main -X theirs --no-edit || echo "Merge failed, skipping"
+          git push origin master
