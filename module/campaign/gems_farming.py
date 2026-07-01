@@ -164,11 +164,31 @@ class GemsFarming(CampaignRun, Dock):
     @Config.when(Campaign_Mode='normal')
     def ui_goto_fleet(self):
         self.ui_ensure(page_fleet)
-        self.ui_ensure_index(self.fleet_to_attack_index,
-                             letter=FLEET_INDEX,
-                             next_button=FLEET_NEXT, 
-                             prev_button=FLEET_PREV,
-                             skip_first_screenshot=True)
+        
+        # ui_ensure_index, set fleet
+        letter = FLEET_INDEX
+        next_button = FLEET_NEXT
+        prev_button = FLEET_PREV
+        interval = (0.2, 0.3)
+
+        retry = Timer(1, count=2)
+        for _ in self.loop():
+            current = letter.ocr(self.device.image)
+            logger.attr("Index", current)
+
+            # ui_ensure_index but ignore default value 0
+            # otherwise we would have 1 extra click switching from 1 to 4
+            if current == 0:
+                continue
+
+            diff = self.fleet_to_attack_index - current
+            if diff == 0:
+                break
+
+            if retry.reached():
+                button = next_button if diff > 0 else prev_button
+                self.device.multi_click(button, n=abs(diff), interval=interval)
+                retry.reset()
 
     @Config.when(Campaign_Mode='hard')
     def ui_goto_fleet(self):
