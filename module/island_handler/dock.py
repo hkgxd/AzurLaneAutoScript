@@ -3,7 +3,7 @@ from module.base.decorator import cached_property, del_cached_property
 from module.base.utils import random_rectangle_vector_opted
 from module.island.ui import IslandUI
 from module.island_handler.assets import *
-from module.island_handler.dock_scanner import CharacterScanner
+from module.island_handler.dock_scanner import CharacterScanner, IdentityScanner
 from module.logger import logger
 from module.map_detection.utils import Points
 from module.ui.switch import Switch
@@ -24,8 +24,11 @@ class IslandDock(IslandUI):
         return self.appear(ISLAND_DOCK_CHECK, offset=(0, 20))
 
     def handle_island_dock_loading(self):
+        identity_scanner = IdentityScanner(self.dock_grid)
         for _ in self.loop(timeout=1.2):
-            pass
+            result = identity_scanner.scan(self.device.image, output=False)
+            if 'unknown' not in result:
+                break           
 
     def _island_dock_quit_check_func(self):
         return not self.appear(ISLAND_DOCK_CHECK, offset=(20, 20))
@@ -154,10 +157,10 @@ class IslandDock(IslandUI):
 
     def island_dock_find_character(self, identity):
         self.island_dock_sort_method_dsc_set(enable=True)
+        scanner = CharacterScanner(self.dock_grid, identity=identity, status=None)
         ISLAND_DOCK_DETECT.load_color(self.device.image)
         ISLAND_DOCK_DETECT._match_init = True
         for _ in self.loop(timeout=40, skip_first=False):
-            scanner = CharacterScanner(self.dock_grid, identity=identity, status=None)
             candidates = scanner.scan(self.device.image)
             for candidate in candidates:
                 if candidate.identity != identity:
@@ -175,10 +178,10 @@ class IslandDock(IslandUI):
 
     def island_dock_select_character_with_blacklist(self, blacklist):
         self.island_dock_sort_method_dsc_set(enable=True)
+        scanner = CharacterScanner(self.dock_grid, identity='any', status='free')
         ISLAND_DOCK_DETECT.load_color(self.device.image)
         ISLAND_DOCK_DETECT._match_init = True
         for _ in self.loop(timeout=40, skip_first=False):
-            scanner = CharacterScanner(self.dock_grid, identity='any', status='free')
             candidates = scanner.scan(self.device.image)
             candidates = (
                 [c for c in candidates if c.grade == 'S']
