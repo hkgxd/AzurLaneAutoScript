@@ -140,7 +140,7 @@ class IslandProduction(IslandRecipe, IslandDock):
         del_cached_property(self, 'slot_grids')
         for _ in self.loop(timeout=1):
             if self.handle_island_additional():
-                continue
+                break
         return True
 
     def prev_page(self):
@@ -154,7 +154,7 @@ class IslandProduction(IslandRecipe, IslandDock):
         del_cached_property(self, 'slot_grids')
         for _ in self.loop(timeout=1):
             if self.handle_island_additional():
-                continue
+                break
         return True
 
     def ensure_top_page(self):

@@ -157,10 +157,10 @@ class IslandDock(IslandUI):
 
     def island_dock_find_character(self, identity):
         self.island_dock_sort_method_dsc_set(enable=True)
+        scanner = CharacterScanner(self.dock_grid, identity=identity, status=None)
         ISLAND_DOCK_DETECT.load_color(self.device.image)
         ISLAND_DOCK_DETECT._match_init = True
         for _ in self.loop(timeout=40, skip_first=False):
-            scanner = CharacterScanner(self.dock_grid, identity=identity, status=None)
             candidates = scanner.scan(self.device.image)
             for candidate in candidates:
                 if candidate.identity != identity:
@@ -178,10 +178,10 @@ class IslandDock(IslandUI):
 
     def island_dock_select_character_with_blacklist(self, blacklist):
         self.island_dock_sort_method_dsc_set(enable=True)
+        scanner = CharacterScanner(self.dock_grid, identity='any', status='free')
         ISLAND_DOCK_DETECT.load_color(self.device.image)
         ISLAND_DOCK_DETECT._match_init = True
         for _ in self.loop(timeout=40, skip_first=False):
-            scanner = CharacterScanner(self.dock_grid, identity='any', status='free')
             candidates = scanner.scan(self.device.image)
             candidates = (
                 [c for c in candidates if c.grade == 'S']
