@@ -117,7 +117,8 @@ class IslandDock(IslandUI):
                 logger.info(f'Button {button.name} is selected')
                 return True
             else:
-                self.device.click(button)
+                if self.appear(ISLAND_DOCK_CHECK, offset=(20, 20), interval=1):
+                    self.device.click(button)
                 continue
 
     def island_dock_select_confirm(self, check_button, skip_first=True):

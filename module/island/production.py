@@ -172,7 +172,7 @@ class IslandProduction(IslandRecipe, IslandDock):
         if not self.is_slot_finished(slot_button):
             logger.warning(f'Slot {slot_button} is not finished, cannot receive reward')
             return False
-        for _ in self.loop():
+        for _ in self.loop(timeout=4):
             if self.handle_island_additional():
                 continue
             if self.appear_then_click(ISLAND_PRODUCTION_RECEIVE, offset=(120, 20), interval=2):
@@ -180,15 +180,15 @@ class IslandProduction(IslandRecipe, IslandDock):
             if self.ui_page_appear(page_island_manage, interval=2):
                 self.device.click(slot_button)
                 continue
-            if self.is_enter_window_shown() and (self.appear(ISLAND_PRODUCTION_RERUN, offset=(20, 20)) or self.appear(ISLAND_PRODUCTION_SELECT_CHARACTER, offset=(60, 20))):
+            if self.is_enter_window_shown() and self.appear(ISLAND_PRODUCTION_SELECT_CHARACTER, offset=(60, 20)):
                 break
         for _ in self.loop():
             if self.handle_island_additional():
                 continue
-            if self.is_enter_window_shown():
+            if self.is_enter_window_shown() or self.appear(ISLAND_PRODUCTION_RERUN, offset=(20, 20)):
                 self.device.click(ISLAND_CLICK_SAFE_AREA)
                 continue
-            if self.match_template_color(page_island_manage.check_button) and not self.is_enter_window_shown() and not self.appear(ISLAND_PRODUCTION_RERUN, offset=(20, 20)):
+            if self.match_template_color(page_island_manage.check_button) and not self.is_enter_window_shown() and not self.appear(ISLAND_PRODUCTION_SELECT_CHARACTER, offset=(60, 20)):
                 return True
 
     def claim_reward_in_page(self, finished_slots=[]):
