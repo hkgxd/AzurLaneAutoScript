@@ -87,8 +87,12 @@
       "help": ""
     },
     "RaidScuttle": {
-      "name": "Task.RaidScuttle.name",
-      "help": "Task.RaidScuttle.help"
+      "name": "Raid Scuttle",
+      "help": ""
+    },
+    "CoalitionScuttle": {
+      "name": "Coalition Scuttle",
+      "help": ""
     },
     "Hospital": {
       "name": "Valley Hospital",
@@ -1360,14 +1364,14 @@
   },
   "RaidScuttle": {
     "_info": {
-      "name": "RaidScuttle._info.name",
-      "help": "RaidScuttle._info.help"
+      "name": "Raid Scuttle",
+      "help": ""
     },
     "Sacrifice": {
-      "name": "RaidScuttle.Sacrifice.name",
-      "help": "RaidScuttle.Sacrifice.help",
-      "vanguard": "vanguard",
-      "flagship": "flagship"
+      "name": "Ship to sacrifice",
+      "help": "",
+      "vanguard": "Vanguard",
+      "flagship": "Flagship"
     }
   },
   "RaidDaily": {
@@ -1398,6 +1402,18 @@
     "Enable": {
       "name": "Enable maritime Escort",
       "help": ""
+    }
+  },
+  "CoalitionScuttle": {
+    "_info": {
+      "name": "Coalition Scuttle",
+      "help": ""
+    },
+    "Sacrifice": {
+      "name": "Ship to sacrifice",
+      "help": "",
+      "vanguard": "Vanguard",
+      "flagship": "Flagship"
     }
   },
   "Coalition": {
