@@ -82,6 +82,14 @@
       "name": "Raid",
       "help": ""
     },
+    "RaidScuttle": {
+      "name": "Raid Scuttle",
+      "help": ""
+    },
+    "CoalitionScuttle": {
+      "name": "Coalition Scuttle",
+      "help": ""
+    },
     "Hospital": {
       "name": "Valley Hospital",
       "help": ""
@@ -1350,6 +1358,18 @@
     "Enable": {
       "name": "Enable maritime Escort",
       "help": ""
+    }
+  },
+  "Scuttle": {
+    "_info": {
+      "name": "Scuttle Settings",
+      "help": ""
+    },
+    "Sacrifice": {
+      "name": "Ship to sacrifice",
+      "help": "",
+      "vanguard": "Vanguard",
+      "flagship": "Flagship"
     }
   },
   "Coalition": {

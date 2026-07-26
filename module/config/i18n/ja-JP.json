@@ -82,6 +82,14 @@
       "name": "Raid",
       "help": ""
     },
+    "RaidScuttle": {
+      "name": "Task.RaidScuttle.name",
+      "help": "Task.RaidScuttle.help"
+    },
+    "CoalitionScuttle": {
+      "name": "Task.CoalitionScuttle.name",
+      "help": "Task.CoalitionScuttle.help"
+    },
     "Hospital": {
       "name": "病院探訪",
       "help": ""
@@ -1350,6 +1358,18 @@
     "Enable": {
       "name": "MaritimeEscort.Enable.name",
       "help": "MaritimeEscort.Enable.help"
+    }
+  },
+  "Scuttle": {
+    "_info": {
+      "name": "Scuttle._info.name",
+      "help": "Scuttle._info.help"
+    },
+    "Sacrifice": {
+      "name": "Scuttle.Sacrifice.name",
+      "help": "Scuttle.Sacrifice.help",
+      "vanguard": "vanguard",
+      "flagship": "flagship"
     }
   },
   "Coalition": {
