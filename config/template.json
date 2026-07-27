@@ -638,7 +638,7 @@
       "FailureInterval": 120,
       "ServerUpdate": "00:00"
     },
-    "RaidScuttle": {
+    "Scuttle": {
       "Sacrifice": "vanguard"
     },
     "Raid": {
@@ -706,7 +706,7 @@
       "FailureInterval": 30,
       "ServerUpdate": "00:00"
     },
-    "CoalitionScuttle": {
+    "Scuttle": {
       "Sacrifice": "vanguard"
     },
     "Campaign": {

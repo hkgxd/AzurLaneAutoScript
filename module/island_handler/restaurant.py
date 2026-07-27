@@ -197,7 +197,7 @@ class IslandRestaurant(IslandDock):
         )
 
     def swipe_top_to_bottom(self):
-        if not self.appear(ISLAND_RESTAURANT_SCROLL_TOP, offset=self._restaurant_offset):
+        if not self.match_template_color(ISLAND_RESTAURANT_SCROLL_TOP, offset=self._restaurant_offset):
             return False
         box = (RESTAURANT_SWIPE_AREA[0] + self._restaurant_offset_x, RESTAURANT_SWIPE_AREA[1],
                RESTAURANT_SWIPE_AREA[2] + self._restaurant_offset_x, RESTAURANT_SWIPE_AREA[3])
@@ -207,7 +207,7 @@ class IslandRestaurant(IslandDock):
         return True
 
     def swipe_bottom_to_top(self):
-        if not self.appear(ISLAND_RESTAURANT_SCROLL_BOTTOM, offset=self._restaurant_offset):
+        if not self.match_template_color(ISLAND_RESTAURANT_SCROLL_BOTTOM, offset=self._restaurant_offset):
             return False
         box = (RESTAURANT_SWIPE_AREA[0] + self._restaurant_offset_x, RESTAURANT_SWIPE_AREA[1],
                RESTAURANT_SWIPE_AREA[2] + self._restaurant_offset_x, RESTAURANT_SWIPE_AREA[3])
@@ -331,7 +331,6 @@ class IslandRestaurant(IslandDock):
         }
         return waitress_lists
 
-    @cached_property
     def unavailable_waitress_list(self):
         lst = set()
         for restaurant_id, waitress_list in self.waitress_lists.items():
@@ -357,7 +356,7 @@ class IslandRestaurant(IslandDock):
         waitress_list = self.waitress_lists[self.working_restaurant_id]
         if waitress_list == ['none']:
             return False
-        unavailable_waitress_list = self.unavailable_waitress_list
+        unavailable_waitress_list = self.unavailable_waitress_list()
         for waitress in waitress_list:
             if waitress in unavailable_waitress_list:
                 unavailable_waitress_list.remove(waitress)
@@ -374,20 +373,20 @@ class IslandRestaurant(IslandDock):
                 candidate = self.island_dock_find_character(waitress)
                 if candidate is None:
                     self.ensure_dock_page_at_top()
-                    success = self.island_dock_select_character_with_blacklist(self.unavailable_waitress_list) and success
+                    success = self.island_dock_select_character_with_blacklist(unavailable_waitress_list) and success
                 elif candidate.status == 'free':
                     self.island_dock_select_one(candidate.button)
                 else:
                     time_until_update = get_server_next_update("00:00") - datetime.now()
                     if time_until_update < timedelta(hours=8):
                         self.ensure_dock_page_at_top()
-                        success = self.island_dock_select_character_with_blacklist(self.unavailable_waitress_list) and success
+                        success = self.island_dock_select_character_with_blacklist(unavailable_waitress_list) and success
                     else:
                         logger.warning(f"Waitress {waitress} not available, delaying restaurant {self.working_restaurant_id} for 8 hours")
                         self.ui_back(check_button=self.is_in_island_restaurant)
                         raise WaitressOccupied(f"Waitress {waitress} is occupied, delaying restaurant {self.working_restaurant_id} for 8 hours")
             else:
-                success = self.island_dock_select_character_with_blacklist(self.unavailable_waitress_list) and success
+                success = self.island_dock_select_character_with_blacklist(unavailable_waitress_list) and success
         if not success:
             logger.warning("Failed to choose waitress")
             self.ui_back(check_button=self.is_in_island_restaurant)

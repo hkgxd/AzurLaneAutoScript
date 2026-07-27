@@ -317,7 +317,7 @@ Hospital:
   UseRecommendFleet: true
 MaritimeEscort:
   Enable: true
-CoalitionScuttle:
+Scuttle:
   Sacrifice:
     value: vanguard
     option: [ vanguard, flagship ]

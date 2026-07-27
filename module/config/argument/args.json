@@ -3340,7 +3340,7 @@
         "display": "hide"
       }
     },
-    "RaidScuttle": {
+    "Scuttle": {
       "Sacrifice": {
         "type": "select",
         "value": "vanguard",
@@ -3739,7 +3739,7 @@
         "display": "hide"
       }
     },
-    "CoalitionScuttle": {
+    "Scuttle": {
       "Sacrifice": {
         "type": "select",
         "value": "vanguard",

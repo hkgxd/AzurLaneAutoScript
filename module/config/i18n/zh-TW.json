@@ -1404,9 +1404,9 @@
       "help": ""
     }
   },
-  "CoalitionScuttle": {
+  "Scuttle": {
     "_info": {
-      "name": "協鬥鑿船",
+      "name": "鑿船設定",
       "help": ""
     },
     "Sacrifice": {

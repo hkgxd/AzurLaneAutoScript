@@ -90,11 +90,11 @@ class CoalitionScuttleRun(Coalition, CoalitionScuttleCombat, Dock):
 
     @property
     def change_vanguard(self):
-        return 'vanguard' in self.config.CoalitionScuttle_Sacrifice
+        return 'vanguard' in self.config.Scuttle_Sacrifice
 
     @property
     def change_flagship(self):
-        return 'flagship' in self.config.CoalitionScuttle_Sacrifice
+        return 'flagship' in self.config.Scuttle_Sacrifice
 
     def triggered_stop_condition(self, pt_check=False, oil_check=False, coin_check=False):
         if self.triggered_normal_end:

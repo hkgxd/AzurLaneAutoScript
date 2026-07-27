@@ -1404,14 +1404,14 @@
       "help": "MaritimeEscort.Enable.help"
     }
   },
-  "CoalitionScuttle": {
+  "Scuttle": {
     "_info": {
-      "name": "CoalitionScuttle._info.name",
-      "help": "CoalitionScuttle._info.help"
+      "name": "Scuttle._info.name",
+      "help": "Scuttle._info.help"
     },
     "Sacrifice": {
-      "name": "CoalitionScuttle.Sacrifice.name",
-      "help": "CoalitionScuttle.Sacrifice.help",
+      "name": "Scuttle.Sacrifice.name",
+      "help": "Scuttle.Sacrifice.help",
       "vanguard": "vanguard",
       "flagship": "flagship"
     }

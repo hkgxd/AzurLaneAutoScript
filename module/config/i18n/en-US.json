@@ -1404,9 +1404,9 @@
       "help": ""
     }
   },
-  "CoalitionScuttle": {
+  "Scuttle": {
     "_info": {
-      "name": "Coalition Scuttle",
+      "name": "Scuttle Settings",
       "help": ""
     },
     "Sacrifice": {

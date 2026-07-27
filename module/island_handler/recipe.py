@@ -55,20 +55,24 @@ ISLAND_RECIPE_AMOUNT_OCR = Digit(ISLAND_RECIPE_AMOUNT, letter=(50, 50, 57), name
 
 
 class IslandReversedDigitCounter(Ocr):
-    def __init__(self, buttons, lang='cnocr', letter=(255, 255, 255), sub_letter=None, threshold=128, sub_threshold=128, alphabet='0123456789/IDSB()+',
-                 name=None):
+    def __init__(self, buttons, lang='cnocr', letter=(255, 255, 255), sub_letter=None, 
+                 threshold=128, sub_threshold=128, 
+                 background_color=None,
+                 alphabet='0123456789/IDSB()+', name=None):
         super().__init__(buttons, lang=lang, letter=letter, threshold=threshold, alphabet=alphabet, name=name)
         self.sub_letter = sub_letter
         self.sub_threshold = sub_threshold
+        self.background_color = background_color
 
-    def pre_process(self, image, background_color=(80, 80, 80)):
-        mask = color_similarity_2d(image, background_color)
-        mask[mask < self.threshold] = 0
-        line = cv2.bitwise_and(mask[0], mask[-1]).flatten()
-        indices = np.where(line > 200)[0]
-        left = indices[0] if len(indices) > 0 else 0
-        right = indices[-1] + 1 if len(indices) > 0 else len(line)
-        image = image[:, left:right]
+    def pre_process(self, image):
+        if self.background_color is not None:
+            mask = color_similarity_2d(image, self.background_color)
+            mask[mask < self.threshold] = 0
+            line = cv2.bitwise_and(mask[0], mask[-1]).flatten()
+            indices = np.where(line > 200)[0]
+            left = indices[0] if len(indices) > 0 else 0
+            right = indices[-1] + 1 if len(indices) > 0 else len(line)
+            image = image[:, left:right]
 
         main_image = extract_letters(image, letter=self.letter, threshold=self.threshold)
         if self.sub_letter is not None and isinstance(self.sub_letter, tuple):
@@ -106,7 +110,7 @@ class IslandReversedDigitCounter(Ocr):
 
 RECIPE_INGREDIENT_COUNTER_OCR = IslandReversedDigitCounter(
     [], lang='cnocr', letter=(255, 255, 255), sub_letter=(253, 171, 34),
-    threshold=160, sub_threshold=160, name='ingredient_counter_ocr'
+    threshold=160, sub_threshold=160, background_color=(80, 80, 80), name='ingredient_counter_ocr'
 )
 
 
@@ -229,7 +233,7 @@ class IslandRecipe(IslandShop):
     def recipe_grid(self):
         for _ in self.loop(timeout=2):
             grid = self.get_recipe_grid()
-            if len(grid.buttons) >= 3:
+            if len(grid.buttons) >= 3 or len(grid.buttons) == 1 and self.working_slot_id in [9031, 9032, 9033, 9034]:
                 return grid
         return grid
 
@@ -300,12 +304,13 @@ class IslandRecipe(IslandShop):
                 break
         all_stocks = {}
         drag_count = 0
+        ISLAND_RECIPE_DRAG_CHECK.load_color(self.device.image)
         for _ in self.loop(timeout=30):
             new_stocks = dict(zip(self.recipe_ids, self.get_recipe_product_stocks()))
             all_stocks.update(new_stocks)
             self.next_recipe_page()
             drag_count += 1
-            if ISLAND_RECIPE_DRAG_CHECK.match(self.device.image):
+            if self.appear(ISLAND_RECIPE_DRAG_CHECK, offset=(20, 20)):
                 if drag_count > 1:
                     logger.info(f'Ensured recipe page bottom after dragging {drag_count} times')
                     self.device.click_record_clear()
@@ -486,7 +491,12 @@ class IslandRecipe(IslandShop):
                 self.device.click(button)
                 clicked = True
                 continue
-            if all_recipe_ids.index(recipe_id) < all_recipe_ids.index(self.recipe_ids[0]):
+            for first_recipe_id in self.recipe_ids:
+                if first_recipe_id in all_recipe_ids:
+                    # Avoid error due to unscanned recipe_ids outside all_recipe_ids
+                    first_index = all_recipe_ids.index(first_recipe_id)
+                    break
+            if all_recipe_ids.index(recipe_id) < first_index:
                 self.prev_recipe_page()
             else:
                 self.next_recipe_page()

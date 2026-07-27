@@ -106,7 +106,7 @@ Event:
       - Emotion
     RaidScuttle:
       - Scheduler
-      - RaidScuttle
+      - Scuttle
       - Raid
       - Campaign
       - StopCondition
@@ -115,7 +115,7 @@ Event:
       - Emotion
     CoalitionScuttle:
       - Scheduler
-      - CoalitionScuttle
+      - Scuttle
       - Campaign
       - Coalition
       - StopCondition
