@@ -1424,10 +1424,10 @@
     "Mode": {
       "name": "Mode",
       "help": "SP needs to use event daily SP to run",
-      "easy": "easy",
-      "normal": "normal",
-      "hard": "hard",
-      "sp": "sp"
+      "easy": "EASY",
+      "normal": "NORMAL",
+      "hard": "HARD",
+      "sp": "SP"
     },
     "Fleet": {
       "name": "Fleet",
@@ -2691,7 +2691,7 @@
   "IslandProduction": {
     "_info": {
       "name": "Island Production",
-      "help": ""
+      "help": "Users need to config Island Business' restaurant level and waitress, then config and run Tools - Island Production Planner to generate the production plan.\nAfter that the Island Production will run normally."
     },
     "HardFloorItems": {
       "name": "Hard Floor Items",

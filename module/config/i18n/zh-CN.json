@@ -272,7 +272,7 @@
     },
     "IslandProduction": {
       "name": "岛屿生产",
-      "help": ""
+      "help": "需要先配置店铺经营的店面属性、店员，然后配置工具-岛屿生产规划器，最后运行岛屿生产规划器，规划器运行得到结果后方可运行岛屿生产。"
     },
     "IslandOrder": {
       "name": "岛屿订单",
@@ -1424,10 +1424,10 @@
     "Mode": {
       "name": "难度",
       "help": "SP图需要使用活动每日SP运行",
-      "easy": "easy",
-      "normal": "normal",
-      "hard": "hard",
-      "sp": "sp"
+      "easy": "简单",
+      "normal": "普通",
+      "hard": "困难",
+      "sp": "SP"
     },
     "Fleet": {
       "name": "出击队伍",

@@ -7,6 +7,7 @@ from module.base.button import ButtonGrid
 from module.base.decorator import cached_property, del_cached_property, has_cached_property
 from module.base.timer import Timer
 from module.base.utils import random_rectangle_vector_opted
+from module.exception import RequestHumanTakeover
 from module.island.assets import *
 from module.island.data import DIC_ISLAND_PRODUCTION_PLACE
 from module.island_handler.dock import IslandDock
@@ -177,7 +178,7 @@ class IslandProduction(IslandRecipe, IslandDock):
                 continue
             if self.appear_then_click(ISLAND_PRODUCTION_RECEIVE, offset=(120, 20), interval=2):
                 continue
-            if self.ui_page_appear(page_island_manage, interval=2):
+            if self.ui_page_appear(page_island_manage, interval=2) and not self.is_enter_window_shown():
                 self.device.click(slot_button)
                 continue
             if self.is_enter_window_shown() and self.appear(ISLAND_PRODUCTION_SELECT_CHARACTER, offset=(60, 20)):
@@ -291,6 +292,10 @@ class IslandProduction(IslandRecipe, IslandDock):
         slot_finish_time = self.config.cross_get("IslandProduction.Storage.Storage.SlotFinishTime", default={})
         self.slot_finish_time = {int(k): datetime.fromisoformat(v) for k, v in slot_finish_time.items()}
         self.claim_all_rewards()
+        yaml_text = self.config.cross_get("IslandProduction.IslandProduction.DailyBufferItems", "")
+        if not yaml_text or yaml_text == "{}":
+            logger.critical('No daily buffer items found in config, please run Island Production Planner first')
+            raise RequestHumanTakeover('No daily buffer items found in config, please run Island Production Planner first')
         self.dispatch_all()
         next_run_time = list(self.slot_finish_time.values())
         with self.config.multi_set():
