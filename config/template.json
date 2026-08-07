@@ -802,41 +802,6 @@
       "Storage": {}
     }
   },
-  "MaritimeEscort": {
-    "Scheduler": {
-      "Enable": false,
-      "NextRun": "2020-01-01 00:00:00",
-      "Command": "MaritimeEscort",
-      "SuccessInterval": 30,
-      "FailureInterval": 30,
-      "ServerUpdate": "00:00"
-    },
-    "MaritimeEscort": {
-      "Enable": true
-    },
-    "Storage": {
-      "Storage": {}
-    }
-  },
-  "EventShop": {
-    "Scheduler": {
-      "Enable": false,
-      "NextRun": "2020-01-01 00:00:00",
-      "Command": "EventShop",
-      "SuccessInterval": 30,
-      "FailureInterval": 30,
-      "ServerUpdate": "00:00"
-    },
-    "EventShop": {
-      "UnlockSSRShip": true,
-      "BuyURShip": 2,
-      "PresetFilter": "all",
-      "CustomFilter": "EquipUR > EquipSSR > Cube > GachaTicket\n> Array > Chip > CatT3 \n> Meta > SkinBox\n> Oil > Coin > Medal > ExpBookT1 > FoodT1\n> DR > PR\n> AugmentCore > AugmentEnhanceT2 > AugmentChangeT2 > AugmentChangeT1\n> CatT2 > CatT1 > PlateGeneralT3 > PlateT3 > BoxT4\n> ShipSSR"
-    },
-    "Storage": {
-      "Storage": {}
-    }
-  },
   "WarArchives": {
     "Scheduler": {
       "Enable": false,
@@ -906,6 +871,25 @@
     },
     "EnemyPriority": {
       "EnemyScaleBalanceWeight": "default_mode"
+    },
+    "Storage": {
+      "Storage": {}
+    }
+  },
+  "EventShop": {
+    "Scheduler": {
+      "Enable": false,
+      "NextRun": "2020-01-01 00:00:00",
+      "Command": "EventShop",
+      "SuccessInterval": 30,
+      "FailureInterval": 30,
+      "ServerUpdate": "00:00"
+    },
+    "EventShop": {
+      "UnlockSSRShip": true,
+      "BuyURShip": 2,
+      "PresetFilter": "all",
+      "CustomFilter": "EquipUR > EquipSSR > Cube > GachaTicket\n> Array > Chip > CatT3 \n> Meta > SkinBox\n> Oil > Coin > Medal > ExpBookT1 > FoodT1\n> DR > PR\n> AugmentCore > AugmentEnhanceT2 > AugmentChangeT2 > AugmentChangeT1\n> CatT2 > CatT1 > PlateGeneralT3 > PlateT3 > BoxT4\n> ShipSSR"
     },
     "Storage": {
       "Storage": {}
@@ -1894,7 +1878,7 @@
     },
     "OpsiShop": {
       "PresetFilter": "max_benefit_meta",
-      "CustomFilter": "LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerObscure > LoggerAbyssalT4 > ActionPoint > PurpleCoins\n> GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart\n> OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1\n> METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator"
+      "CustomFilter": "LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerAbyssalT4 > LoggerObscureT6 > LoggerObscureT5 > LoggerObscureT4 > LoggerObscureT3 > ActionPoint > PurpleCoins\n> GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart\n> OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1\n> METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator"
     },
     "Storage": {
       "Storage": {}
@@ -2180,19 +2164,24 @@
     },
     "IslandRestaurant": {
       "KoiGrade": "bronze",
-      "KoiWaitress": "any",
+      "KoiWaitress1": "any",
+      "KoiWaitress2": "none",
       "KoiMenu": "{}",
       "BearGrade": "bronze",
-      "BearWaitress": "any",
+      "BearWaitress1": "any",
+      "BearWaitress2": "none",
       "BearMenu": "{}",
       "EateryGrade": "bronze",
-      "EateryWaitress": "any",
+      "EateryWaitress1": "any",
+      "EateryWaitress2": "none",
       "EateryMenu": "{}",
       "GrillGrade": "bronze",
-      "GrillWaitress": "any",
+      "GrillWaitress1": "any",
+      "GrillWaitress2": "none",
       "GrillMenu": "{}",
       "CafeGrade": "bronze",
-      "CafeWaitress": "any",
+      "CafeWaitress1": "any",
+      "CafeWaitress2": "none",
       "CafeMenu": "{}"
     },
     "Storage": {

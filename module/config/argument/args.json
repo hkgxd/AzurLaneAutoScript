@@ -2070,7 +2070,6 @@
         "type": "select",
         "value": "campaign_main",
         "option": [
-          "coalition_20230323",
           "coalition_20260723"
         ],
         "option_cn": [
@@ -2083,10 +2082,9 @@
           "coalition_20260723"
         ],
         "option_tw": [
-          "coalition_20230323"
+          "coalition_20260723"
         ],
         "option_bold": [
-          "coalition_20230323",
           "coalition_20260723"
         ]
       },
@@ -4283,7 +4281,7 @@
       }
     }
   },
-  "MaritimeEscort": {
+  "EventShop": {
     "Scheduler": {
       "Enable": {
         "type": "checkbox",
@@ -4300,7 +4298,7 @@
       },
       "Command": {
         "type": "input",
-        "value": "MaritimeEscort",
+        "value": "EventShop",
         "display": "hide"
       },
       "SuccessInterval": {
@@ -4319,10 +4317,31 @@
         "display": "hide"
       }
     },
-    "MaritimeEscort": {
-      "Enable": {
+    "EventShop": {
+      "UnlockSSRShip": {
         "type": "checkbox",
         "value": true
+      },
+      "BuyURShip": {
+        "type": "select",
+        "value": 2,
+        "option": [
+          0,
+          1,
+          2
+        ]
+      },
+      "PresetFilter": {
+        "type": "select",
+        "value": "all",
+        "option": [
+          "all",
+          "custom"
+        ]
+      },
+      "CustomFilter": {
+        "type": "textarea",
+        "value": "EquipUR > EquipSSR > Cube > GachaTicket\n> Array > Chip > CatT3 \n> Meta > SkinBox\n> Oil > Coin > Medal > ExpBookT1 > FoodT1\n> DR > PR\n> AugmentCore > AugmentEnhanceT2 > AugmentChangeT2 > AugmentChangeT1\n> CatT2 > CatT1 > PlateGeneralT3 > PlateT3 > BoxT4\n> ShipSSR"
       }
     },
     "Storage": {
@@ -5079,7 +5098,6 @@
         "type": "select",
         "value": "campaign_main",
         "option": [
-          "coalition_20230323",
           "coalition_20260723"
         ],
         "option_cn": [
@@ -5092,10 +5110,9 @@
           "coalition_20260723"
         ],
         "option_tw": [
-          "coalition_20230323"
+          "coalition_20260723"
         ],
         "option_bold": [
-          "coalition_20230323",
           "coalition_20260723"
         ]
       },
@@ -9611,7 +9628,7 @@
       },
       "CustomFilter": {
         "type": "textarea",
-        "value": "LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerObscure > LoggerAbyssalT4 > ActionPoint > PurpleCoins\n> GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart\n> OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1\n> METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator"
+        "value": "LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerAbyssalT4 > LoggerObscureT6 > LoggerObscureT5 > LoggerObscureT4 > LoggerObscureT3 > ActionPoint > PurpleCoins\n> GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart\n> OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1\n> METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator"
       }
     },
     "Storage": {
@@ -10568,15 +10585,22 @@
           "diamond"
         ]
       },
-      "KoiWaitress": {
+      "KoiWaitress1": {
         "type": "select",
         "value": "any",
         "option": [
           "none",
           "any",
-          "Chao_Ho",
-          "any+any",
-          "Chao_Ho+any"
+          "Chao_Ho"
+        ]
+      },
+      "KoiWaitress2": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "none",
+          "any",
+          "Chao_Ho"
         ]
       },
       "KoiMenu": {
@@ -10593,15 +10617,22 @@
           "diamond"
         ]
       },
-      "BearWaitress": {
+      "BearWaitress1": {
         "type": "select",
         "value": "any",
         "option": [
           "none",
           "any",
-          "Cheshire",
-          "any+any",
-          "Cheshire+any"
+          "Cheshire"
+        ]
+      },
+      "BearWaitress2": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "none",
+          "any",
+          "Cheshire"
         ]
       },
       "BearMenu": {
@@ -10618,18 +10649,24 @@
           "diamond"
         ]
       },
-      "EateryWaitress": {
+      "EateryWaitress1": {
         "type": "select",
         "value": "any",
         "option": [
           "none",
           "any",
           "Helena",
-          "Prinz_Eugen",
-          "any+any",
-          "Helena+any",
-          "Prinz_Eugen+any",
-          "Helena+Prinz_Eugen"
+          "Prinz_Eugen"
+        ]
+      },
+      "EateryWaitress2": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "none",
+          "any",
+          "Helena",
+          "Prinz_Eugen"
         ]
       },
       "EateryMenu": {
@@ -10646,18 +10683,24 @@
           "diamond"
         ]
       },
-      "GrillWaitress": {
+      "GrillWaitress1": {
         "type": "select",
         "value": "any",
         "option": [
           "none",
           "any",
           "August_von_Parseval",
-          "Prinz_Eugen",
-          "any+any",
-          "August_von_Parseval+any",
-          "Prinz_Eugen+any",
-          "August_von_Parseval+Prinz_Eugen"
+          "Prinz_Eugen"
+        ]
+      },
+      "GrillWaitress2": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "none",
+          "any",
+          "August_von_Parseval",
+          "Prinz_Eugen"
         ]
       },
       "GrillMenu": {
@@ -10674,15 +10717,22 @@
           "diamond"
         ]
       },
-      "CafeWaitress": {
+      "CafeWaitress1": {
         "type": "select",
         "value": "any",
         "option": [
           "none",
           "any",
-          "Cheshire",
-          "any+any",
-          "Cheshire+any"
+          "Cheshire"
+        ]
+      },
+      "CafeWaitress2": {
+        "type": "select",
+        "value": "none",
+        "option": [
+          "none",
+          "any",
+          "Cheshire"
         ]
       },
       "CafeMenu": {

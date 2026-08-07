@@ -25,6 +25,7 @@ from module.island.utils import (
     parse_item_need_deadlines,
 )
 from module.island_handler.assets import *
+from module.island_handler.exchange import IslandExchange
 from module.island_handler.shop import IslandShop
 from module.logger import logger
 from module.map_detection.utils import Points
@@ -33,7 +34,9 @@ from module.ui.page import page_island, page_island_manage, page_island_shop
 
 
 class IslandProductionRestart(Exception):
-    pass
+    def __init__(self, item_id, success=True):
+        self.item_id = item_id
+        self.success = success
 
 
 RECIPE_SIZE = (280, 134)
@@ -211,7 +214,7 @@ def recipe_product_name_to_recipe_id(name, slotcode=None):
     return corrected_id
 
 
-class IslandRecipe(IslandShop):
+class IslandRecipe(IslandExchange, IslandShop):
     working_slot_id = None
 
     # recipe related methods
@@ -534,7 +537,7 @@ class IslandRecipe(IslandShop):
         if batch_count == float('inf'):
             max_count = DIC_ISLAND_RECIPE[recipe_id]['production_limit']
             for ingredient_key, counter in zip(recipe_cost, counters):
-                if ingredient_key in DIC_ISLAND_SHOP_ITEM_TO_RECIPE:
+                if ingredient_key in DIC_ISLAND_SHOP_ITEM_TO_RECIPE or ingredient_key in (2521, 2522):
                     continue
                 available_stock = max(counter[0] - self.hard_floor_items.get(ingredient_key, 0), 0)
                 count = available_stock // counter[1] if counter[1] > 0 else float('inf')
@@ -544,12 +547,37 @@ class IslandRecipe(IslandShop):
             logger.info(f'Calculated max batch count to produce with current ingredient stock: {batch_count}')
         success = True
         real_count = batch_count
+        failed_buy_items = getattr(self, 'failed_buy_items', set())
         ingredient_buttons = self.get_recipe_ingredient_grids(recipe_id).buttons
         for ingredient_key, counter, button in zip(recipe_cost, counters, ingredient_buttons):
             hard_floor = self.hard_floor_items.get(ingredient_key, 0)
             available_stock = max(counter[0] - hard_floor, 0)
             if available_stock < real_count * counter[1]:
+                if ingredient_key in (2521, 2522):
+                    if ingredient_key in failed_buy_items:
+                        logger.warning(
+                            f'Skipping exchange of ingredient {ingredient_key} after a previous failed exchange'
+                        )
+                        real_count = min(real_count, available_stock // counter[1]) if counter[1] > 0 else 0
+                        success = False
+                        continue
+                    delta = real_count * counter[1] - available_stock
+                    self.ui_back(check_button=page_island_manage.check_button)
+                    self.ui_goto_island_shop()
+                    exchange_success = super().island_shop_exchange({ingredient_key: delta})
+                    # Exchange leaves the recipe menu. Return to production management and
+                    # restart so the next attempt rescans recipe stocks and ingredient state.
+                    self.ui_back(check_button=page_island.check_button)
+                    self.ui_goto(page_island_manage)
+                    raise IslandProductionRestart(item_id=ingredient_key, success=exchange_success)
                 if ingredient_key in DIC_ISLAND_SHOP_ITEM_TO_RECIPE:
+                    if ingredient_key in failed_buy_items:
+                        logger.warning(
+                            f'Skipping purchase of ingredient {ingredient_key} after a previous failed buy'
+                        )
+                        real_count = min(real_count, available_stock // counter[1]) if counter[1] > 0 else 0
+                        success = False
+                        continue
                     if ingredient_key == 3004:  # flour cannot be bought via jumping page, need to go to shop page to buy
                         self.ui_back(check_button=page_island_manage.check_button)
                         self.ui_goto_island_shop()
@@ -558,7 +586,8 @@ class IslandRecipe(IslandShop):
                         self.goto_ingredient_shop_page(entrance_button=button)
                         isolated = True
                     delta = real_count * counter[1] - available_stock
-                    success = super().island_shop_buy({ingredient_key: delta}, isolated=isolated) and success
+                    buy_success = super().island_shop_buy({ingredient_key: delta}, isolated=isolated)
+                    success = buy_success and success
                     if not isolated:
                         # We need an exception for inherited class to handle ui switch
                         # and restart the ingredient preparation after buying flour,
@@ -566,7 +595,7 @@ class IslandRecipe(IslandShop):
                         # which may cause the recipe page to lose the set recipe and ingredient states.
                         self.ui_back(check_button=page_island.check_button)
                         self.ui_goto(page_island_manage)
-                        raise IslandProductionRestart
+                        raise IslandProductionRestart(item_id=ingredient_key, success=buy_success)
                     else:
                         self.ui_back(check_button=self.is_in_recipe_menu)
                     if not success:

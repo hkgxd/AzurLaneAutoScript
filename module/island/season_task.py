@@ -142,8 +142,11 @@ class IslandSeasonTask(IslandUI):
         code = None
         corrected_name = None
         for key, item in DIC_ISLAND_TASK.items():
+            if item['start_time'] is None or item['end_time'] is None:
+                continue
             distance = levenshtein_distance(name, item['name'][server.server])
-            if distance < min_distance:
+            if distance <= min_distance:
+                # allow for multiple matches, but only keep the closest one
                 min_distance = distance
                 code = key
                 corrected_name = item['name'][server.server]

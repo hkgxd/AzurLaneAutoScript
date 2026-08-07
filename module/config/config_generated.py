@@ -184,8 +184,8 @@ class GeneratedConfig:
     # Group `Hospital`
     Hospital_UseRecommendFleet = True
 
-    # Group `MaritimeEscort`
-    MaritimeEscort_Enable = True
+    # Group `Scuttle`
+    Scuttle_Sacrifice = 'vanguard'  # vanguard, flagship
 
     # Group `Scuttle`
     Scuttle_Sacrifice = 'vanguard'  # vanguard, flagship
@@ -424,7 +424,7 @@ class GeneratedConfig:
 
     # Group `OpsiShop`
     OpsiShop_PresetFilter = 'max_benefit_meta'  # max_benefit, max_benefit_meta, no_meta, all, custom
-    OpsiShop_CustomFilter = 'LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerObscure > LoggerAbyssalT4 > ActionPoint > PurpleCoins\n> GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart\n> OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1\n> METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator'
+    OpsiShop_CustomFilter = 'LoggerAbyssalT6 > LoggerAbyssalT5 > LoggerAbyssalT4 > LoggerObscureT6 > LoggerObscureT5 > LoggerObscureT4 > LoggerObscureT3 > ActionPoint > PurpleCoins\n> GearDesignPlanT3 > PlateRandomT4 > DevelopmentMaterialT3 > GearDesignPlanT2 > GearPart\n> OrdnanceTestingReportT3 > OrdnanceTestingReportT2 > DevelopmentMaterialT2 > OrdnanceTestingReportT1\n> METARedBook > CrystallizedHeatResistantSteel > NanoceramicAlloy > NeuroplasticProstheticArm > SupercavitationGenerator'
 
     # Group `OpsiVoucher`
     OpsiVoucher_Filter = 'LoggerAbyssal > LoggerObscure > Book > Coin > Fragment'
@@ -470,19 +470,24 @@ class GeneratedConfig:
 
     # Group `IslandRestaurant`
     IslandRestaurant_KoiGrade = 'bronze'  # bronze, silver, gold, diamond
-    IslandRestaurant_KoiWaitress = 'any'  # none, any, Chao_Ho, any+any, Chao_Ho+any
+    IslandRestaurant_KoiWaitress1 = 'any'  # none, any, Chao_Ho
+    IslandRestaurant_KoiWaitress2 = 'none'  # none, any, Chao_Ho
     IslandRestaurant_KoiMenu = '{}'
     IslandRestaurant_BearGrade = 'bronze'  # bronze, silver, gold, diamond
-    IslandRestaurant_BearWaitress = 'any'  # none, any, Cheshire, any+any, Cheshire+any
+    IslandRestaurant_BearWaitress1 = 'any'  # none, any, Cheshire
+    IslandRestaurant_BearWaitress2 = 'none'  # none, any, Cheshire
     IslandRestaurant_BearMenu = '{}'
     IslandRestaurant_EateryGrade = 'bronze'  # bronze, silver, gold, diamond
-    IslandRestaurant_EateryWaitress = 'any'  # none, any, Helena, Prinz_Eugen, any+any, Helena+any, Prinz_Eugen+any, Helena+Prinz_Eugen
+    IslandRestaurant_EateryWaitress1 = 'any'  # none, any, Helena, Prinz_Eugen
+    IslandRestaurant_EateryWaitress2 = 'none'  # none, any, Helena, Prinz_Eugen
     IslandRestaurant_EateryMenu = '{}'
     IslandRestaurant_GrillGrade = 'bronze'  # bronze, silver, gold, diamond
-    IslandRestaurant_GrillWaitress = 'any'  # none, any, August_von_Parseval, Prinz_Eugen, any+any, August_von_Parseval+any, Prinz_Eugen+any, August_von_Parseval+Prinz_Eugen
+    IslandRestaurant_GrillWaitress1 = 'any'  # none, any, August_von_Parseval, Prinz_Eugen
+    IslandRestaurant_GrillWaitress2 = 'none'  # none, any, August_von_Parseval, Prinz_Eugen
     IslandRestaurant_GrillMenu = '{}'
     IslandRestaurant_CafeGrade = 'bronze'  # bronze, silver, gold, diamond
-    IslandRestaurant_CafeWaitress = 'any'  # none, any, Cheshire, any+any, Cheshire+any
+    IslandRestaurant_CafeWaitress1 = 'any'  # none, any, Cheshire
+    IslandRestaurant_CafeWaitress2 = 'none'  # none, any, Cheshire
     IslandRestaurant_CafeMenu = '{}'
 
     # Group `IslandSeasonTask`
