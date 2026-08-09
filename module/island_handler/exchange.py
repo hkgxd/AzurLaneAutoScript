@@ -11,10 +11,12 @@ class IslandExchange(IslandShopUI):
         for _ in self.loop(timeout=3):
             if self.handle_island_additional():
                 continue
+            if self.handle_island_popup_confirm('EXCHANGE'):
+                continue
             if self.appear(ISLAND_EXCHANGE_SELECT_ALL, offset=(20, 20)):
                 if before_amount is None:
                     before_amount = ocr.ocr(self.device.image)
-            if self.image_color_count(ISLAND_EXCHANGE_SELECT_ALL, (57, 189, 255), count=25):
+            if self.image_color_count(ISLAND_EXCHANGE_SELECT_ALL, color=(255, 255, 255), count=25):
                 break
             if self.appear_then_click(ISLAND_EXCHANGE_SELECT_ALL, offset=(20, 20), interval=1):
                 continue

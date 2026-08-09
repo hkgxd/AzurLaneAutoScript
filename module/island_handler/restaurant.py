@@ -13,9 +13,9 @@ from module.config.utils import get_server_next_update
 from module.island.assets import ISLAND_CLICK_SAFE_AREA
 from module.island.data import DIC_ISLAND_ITEM, DIC_ISLAND_RESTAURANT_MENU_TO_RECIPE
 from module.island.utils import (
+    get_production_target_stock,
     load_hard_floor_items,
     load_item_mapping,
-    load_request_buffer_items,
     load_reserve_items,
     normalize_item_keys,
 )
@@ -63,6 +63,13 @@ class RestaurantItem(Item):
         return sum_ > 400
 
 
+class RestaurantItemAmount(Digit):
+    def pre_process(self, image):
+        image = super().pre_process(image)
+        cv2.threshold(image, 128, 255, cv2.THRESH_BINARY, dst=image)
+        return image
+
+
 class RestaurantItemGrid(ItemGrid):
     item_class = RestaurantItem
     similarity = 0.75
@@ -72,11 +79,11 @@ class RestaurantItemGrid(ItemGrid):
             grid,
             templates={},
             template_area=(12, 21, 72, 67),
-            amount_area=(38, 67, 83, 86),
+            amount_area=(42, 67, 77, 86),
             tag_area=(66, 2, 72, 5)
         )
         if server.server == 'jp':
-            self.amount_ocr = Digit([], letter=(237, 237, 237), threshold=160, name='Amount_ocr')
+            self.amount_ocr = RestaurantItemAmount([], letter=(200, 200, 200), lang='cnocr', threshold=160, name='Amount_ocr')
         else:
             self.amount_ocr = Digit([], lang='cnocr', threshold=160, name='Amount_ocr')
         self.load_template_folder('./assets/island/restaurant')
@@ -273,7 +280,7 @@ class IslandRestaurant(IslandDock):
         menu_items = [
             item for item in items
             if item.id in menu
-            and item.amount >= capacity
+            and item.amount >= max(capacity, protected_items.get(item.id, 0))
         ]
         surplus_items = [
             item for item in items
@@ -297,9 +304,6 @@ class IslandRestaurant(IslandDock):
         reserve_items = normalize_item_keys(load_reserve_items(
             self.config.cross_get("IslandProduction.IslandProduction.ReserveItems", "")
         ))
-        request_buffer_items = normalize_item_keys(load_request_buffer_items(
-            self.config.cross_get("IslandProduction.IslandProduction.RequestBufferItems", "")
-        ))
         daily_buffer_items = normalize_item_keys(load_item_mapping(
             self.config.cross_get("IslandProduction.IslandProduction.DailyBufferItems", ""),
             config_name='DailyBufferItems',
@@ -307,13 +311,12 @@ class IslandRestaurant(IslandDock):
         item_ids = set()
         item_ids.update(hard_floor_items)
         item_ids.update(reserve_items)
-        item_ids.update(request_buffer_items)
         item_ids.update(daily_buffer_items)
         return {
-            item_id: (
-                hard_floor_items.get(item_id, 0)
-                + reserve_items.get(item_id, 0)
-                + max(request_buffer_items.get(item_id, 0), daily_buffer_items.get(item_id, 0))
+            item_id: get_production_target_stock(
+                hard_floor_items.get(item_id, 0),
+                reserve_items.get(item_id, 0),
+                daily_buffer_items.get(item_id, 0),
             )
             for item_id in item_ids
         }

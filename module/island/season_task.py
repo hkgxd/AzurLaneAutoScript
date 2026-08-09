@@ -195,7 +195,8 @@ class IslandSeasonTask(IslandUI):
                     early_stop = True
                     break
                 else:
-                    unfinished_tasks.append(task_id)
+                    if task_id not in unfinished_tasks:
+                        unfinished_tasks.append(task_id)
             if early_stop:
                 logger.info(f'Detect obtained task, early stop scanning')
                 break
