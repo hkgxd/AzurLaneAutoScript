@@ -184,7 +184,12 @@ class IslandOrder(IslandUI):
             stock, required, _ = counter
             hard_floor = self.hard_floor.get(item, 0)
             priority = is_urgent or is_season
-            effective_stock = get_order_effective_stock(stock, hard_floor, priority=priority)
+            effective_stock = get_order_effective_stock(
+                stock,
+                hard_floor,
+                reserve=self.reserve.get(item, 0),
+                priority=priority,
+            )
             if required > effective_stock:
                 logger.warning(
                     f'Item {item} does not meet the requirement: stock {stock}, '
@@ -370,6 +375,10 @@ class IslandOrder(IslandUI):
         return False
 
     def run(self):
+        if self.config.SERVER in ['en', 'tw']:
+            logger.info(f'IslandOrder is not available on {self.config.SERVER} server, delay until next server update')
+            self.config.task_delay(server_update=True)
+            return
         self.ui_ensure(page_island_order)
         self.next_runtime = []
         self.update_production_plan = False

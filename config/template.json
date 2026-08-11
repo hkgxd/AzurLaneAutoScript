@@ -2082,10 +2082,10 @@
       "ServerUpdate": "00:00"
     },
     "IslandProduction": {
+      "HardFloorItems": "{}",
       "ReserveItems": "{}",
       "DailyBufferItems": "{}",
-      "IdleAccumulatingItems": "{}",
-      "HardFloorItems": "{}"
+      "IdleAccumulatingItems": "{}"
     },
     "Storage": {
       "Storage": {}
