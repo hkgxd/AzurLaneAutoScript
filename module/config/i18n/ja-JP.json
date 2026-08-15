@@ -70,10 +70,6 @@
       "name": "イベント共通設定",
       "help": ""
     },
-    "Coalition": {
-      "name": "怪談実録",
-      "help": ""
-    },
     "Event": {
       "name": "イベント海域",
       "help": ""
@@ -98,8 +94,8 @@
       "name": "病院探訪",
       "help": ""
     },
-    "EventShop": {
-      "name": "イベント商店",
+    "Coalition": {
+      "name": "怪談実録",
       "help": ""
     },
     "EventShop": {
@@ -108,10 +104,6 @@
     },
     "WarArchives": {
       "name": "作戦履歴",
-      "help": ""
-    },
-    "CoalitionSp": {
-      "name": "怪談実録SP",
       "help": ""
     },
     "EventA": {
@@ -136,6 +128,10 @@
     },
     "RaidDaily": {
       "name": "Raid Daily",
+      "help": ""
+    },
+    "CoalitionSp": {
+      "name": "怪談実録SP",
       "help": ""
     },
     "Commission": {
@@ -819,6 +815,7 @@
       "event_20260417_cn": "バケーションレーン・きらめく砂浜",
       "event_20260520_cn": "聖印前の同盟",
       "event_20260625_cn": "幻夢のカヴァルカード",
+      "event_20260813_cn": "星の導く街",
       "raid_20200624": "特別演習超空強襲波（復刻）",
       "raid_20210708": "交錯する新たな波 (復刻)",
       "raid_20220127": "秘密事件調査",

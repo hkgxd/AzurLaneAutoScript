@@ -70,10 +70,6 @@
       "name": "Event General",
       "help": ""
     },
-    "Coalition": {
-      "name": "Authentic Horror Story",
-      "help": ""
-    },
     "Event": {
       "name": "Event",
       "help": ""
@@ -98,8 +94,8 @@
       "name": "Valley Hospital",
       "help": ""
     },
-    "EventShop": {
-      "name": "Event Shop",
+    "Coalition": {
+      "name": "Authentic Horror Story",
       "help": ""
     },
     "EventShop": {
@@ -109,10 +105,6 @@
     "WarArchives": {
       "name": "War Archives",
       "help": "Due to the lack of maintenance of war archives, continuous clear may not work normally, if Alas runs abnormally, Please manually finish clearing and use auto search"
-    },
-    "CoalitionSp": {
-      "name": "Authentic Horror Story SP",
-      "help": ""
     },
     "EventA": {
       "name": "Event Daily A",
@@ -136,6 +128,10 @@
     },
     "RaidDaily": {
       "name": "Raid Daily",
+      "help": ""
+    },
+    "CoalitionSp": {
+      "name": "Authentic Horror Story SP",
       "help": ""
     },
     "Commission": {
@@ -819,6 +815,7 @@
       "event_20260417_cn": "Vacation Lane – Beachside Brilliance",
       "event_20260520_cn": "Alliance Before the Hagiobull",
       "event_20260625_cn": "Miracle by Midnight",
+      "event_20260813_cn": "Depths of the Astrarium",
       "raid_20200624": "Air Raid Drills with Essex Rerun",
       "raid_20210708": "Cross Wave rerun",
       "raid_20220127": "Mystery Investigation",
